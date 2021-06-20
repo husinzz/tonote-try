@@ -1,9 +1,12 @@
 const express = require("express");
 const db = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 const port = 8080;
 const db_uri = "mongodb://localhost:27017/tonote";
+
+app.use(cors({ origin: "http://localhost:3000" }));
 
 db.connect(db_uri, {
   useNewUrlParser: true,
