@@ -4,34 +4,28 @@ import axios from "axios";
 
 const URI = "http://localhost:8080/api/todo/";
 
+// Add a colapsing function to task list ( Later udah kelamaan )
+
 function Task(props) {
   const [state, changeState] = useState(props.state);
-
-  useEffect(() => {
-    const task = {
-      title: props.title,
-      state: state,
-    };
-
-    axios
-      .post(URI + "edit/" + props.id, task)
-      .then((res) => {
-        console.log("Task value changed succesfully");
-      })
-      .catch((res) => {
-        console.log("An error occured when changing task value");
-      });
-  });
+  const [title, changeTitle] = useState(props.title);
 
   return (
-    <div>
-      <div
-        onClick={() => {
-          changeState(!state);
-        }}
-      >
-        <p className={state ? "task_completed" : ""}>{props.title}</p>
-      </div>
+    <div
+      className="w-100"
+      onClick={() => {
+        axios
+          .post(URI + "edit/" + props.id, { title: props.title, state: !state })
+          .then((res) => {
+            changeState(!state);
+            console.log("Task value changed succesfully");
+          })
+          .catch((res) => {
+            console.log("An error occured when changing task value");
+          });
+      }}
+    >
+      <p className={state ? "task_completed" : ""}>{title}</p>
     </div>
   );
 }
@@ -41,6 +35,7 @@ export default class TaskList extends React.Component {
     super(props);
     this.state = {
       tasks: [],
+      collapsed: true,
     };
   }
 
@@ -60,15 +55,49 @@ export default class TaskList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="taskList" className="taskList p-3 collapse">
+        <div className="d-flex">
+          <h3 className="w-100">Todo List</h3>
+          <i
+            className="bi bi-x-lg flex-shrink-1"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#taskList"
+            aria-expanded="false"
+            aria-controls="taskList"
+          ></i>
+        </div>
+        <hr />
         {this.state.tasks.map((current) => {
           return (
-            <Task
-              title={current.title}
-              state={current.state}
-              id={current._id}
-              key={current._id}
-            />
+            <div className="d-flex px-1">
+              <Task
+                title={current.title}
+                state={current.state}
+                id={current._id}
+                key={current._id}
+              />
+              <div
+                className="flex-shrink-1 px-1"
+                onClick={() => {
+                  axios
+                    .delete(URI + "delete/" + current._id)
+                    .then(() => {
+                      this.setState({
+                        tasks: this.state.tasks.filter(
+                          (el) => el._id !== current._id
+                        ),
+                      });
+                      console.log("Deleting task succesfully");
+                    })
+                    .catch(() => {
+                      console.log("Error occured while deleting task");
+                    });
+                }}
+              >
+                <i className="bi bi-x-circle-fill "></i>
+              </div>
+            </div>
           );
         })}
       </div>

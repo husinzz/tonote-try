@@ -1,3 +1,16 @@
 .task_completed {
   text-decoration: line-through;
 }
+
+.taskList {
+  width: 224px;
+  height: 100%;
+  display: block;
+  float: right;
+  border-left: solid;
+  background-color: #fafafa;
+}
+
+.bi-x-lg {
+  font-size: 24px;
+}
