@@ -5,20 +5,12 @@ import "./App.css";
 import { Router, Route } from "react-router-dom";
 
 import TaskList from "./components/task.component";
+import Navigation from "./components/nav.component";
 
 function App() {
   return (
     <div className="w-100 h-100">
-      <button
-        className="btn btn-primary"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#taskList"
-        aria-expanded="false"
-        aria-controls="taskList"
-      >
-        Button with data-bs-target
-      </button>
+      <Navigation />
       <TaskList />
     </div>
   );

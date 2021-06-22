@@ -58,14 +58,6 @@ export default class TaskList extends React.Component {
       <div id="taskList" className="taskList p-3 collapse">
         <div className="d-flex">
           <h3 className="w-100">Todo List</h3>
-          <i
-            className="bi bi-x-lg flex-shrink-1"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#taskList"
-            aria-expanded="false"
-            aria-controls="taskList"
-          ></i>
         </div>
         <hr />
         {this.state.tasks.map((current) => {
