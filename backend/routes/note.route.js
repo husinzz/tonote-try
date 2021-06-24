@@ -1,6 +1,16 @@
 const router = require("express").Router();
 const Note = require("../models/note.model");
 
+router.route("/api/note/fetch/:id").get((req, res) => {
+  Note.findById(req.params.id)
+    .then((note) => {
+      res.json(note);
+    })
+    .catch(() => {
+      res.json("Error occured while fetching data");
+    });
+});
+
 router.route("/api/note/show").get((req, res) => {
   Note.find()
     .then((note) => {

@@ -4,7 +4,7 @@ import axios from "axios";
 
 const URI = "http://localhost:8080/api/todo/";
 
-// Add a colapsing function to task list ( Later udah kelamaan )
+// Add a a way for me to add tasks from the app note from insomnia
 
 function Task(props) {
   const [state, changeState] = useState(props.state);
