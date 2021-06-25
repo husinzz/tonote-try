@@ -11,7 +11,7 @@
   background-color: #fafafa;
   overflow: scroll;
   position: sticky;
-  top: 52;
+  top: 52px;
 }
 
 .bi-x-lg {
@@ -27,8 +27,8 @@
   position: sticky;
   font-size: 62px;
   top: 85%;
-  left: 80%;
   color: black;
+  float: right;
 }
 
 .note-block {
